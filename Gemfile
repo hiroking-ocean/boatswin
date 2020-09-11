@@ -39,6 +39,7 @@ gem 'bootstrap'
 gem 'jquery-rails'
 gem 'gon'
 gem 'momentjs-rails'
+gem 'autoprefixer-rails', '9.8.6.3' 
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
