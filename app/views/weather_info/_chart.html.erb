@@ -1,0 +1,19 @@
+<div id="ChartImageControll" class="carousel slide chart" data-ride="carousel" data-interval='false'>
+
+  <div class="carousel-inner">
+    <% @names.chart.each_with_index do |name, i| %>
+    <div class="carousel-item <%= add_class(i) %>" carousel-number="<%= @names.chart[i] %>" id="<%= i %>">
+      <%= image_tag("charts/" + name + ".jpg") %>
+    </div>
+    <%end%>
+  </div>
+
+  <a class="carousel-control-prev chart-button" href="#ChartImageControll" role="button" data-slide="prev" data-targets="chart">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next chart-button" href="#ChartImageControll" role="button" data-slide="next" data-targets="chart">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>

@@ -1,0 +1,20 @@
+<div id="TimeImageControll" class="carousel-fade slide time" data-ride="carousel" data-interval='false' data-touch="false">
+  <div class="carousel-inner">
+    <% @names.parse(@names.sorted).each_with_index do |value, i| %>
+    <div class="carousel-item <%= add_class(i) %>" carousel-number="<%= @names.sorted[i] %>"
+      id="<%= i %>">
+
+      <div class="line-up">
+        <div class="time-text"><p><%= value.strftime("%H時%M分") %></p></div>
+        <div class="date-text"><p><%= value.strftime("%m-%d") %></p></div>
+        <div class="year-text"><p><%= value.strftime("%Y") %></p></div>
+      </div>
+
+    </div>
+    <%end%>
+  </div>
+</div>
+
+<style>
+
+</style>
