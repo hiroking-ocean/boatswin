@@ -27,5 +27,9 @@
 /public/assets
 .byebug_history
 
+/assets/images/charts
+/assets/images/waves
+/assets/images/winds
+
 # Ignore master key for decrypting credentials and more.
 /config/master.key
