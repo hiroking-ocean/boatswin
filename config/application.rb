@@ -16,6 +16,7 @@ module Boatswin
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
+    #プリコンパイル対象にjpgを含める
     Rails.application.config.assets.precompile += %w( *.eot *.woff *.ttf *.svg *.otf *.png *.jpg *.jpeg *.gif vendor.css vendor.js )
   end
 end
