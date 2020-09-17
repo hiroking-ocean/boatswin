@@ -1,5 +1,10 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-info">
-  <a class="navbar-brand  d-flex align-items-center" href="#"><%= image_tag 'anchor.svg', class:'main_icon', size:'50x40', alt:'アイコン画像' %><strong class="boatswin">BoatSwin</strong></a>
+
+  <%= link_to root_path, class:"navbar-brand  d-flex align-items-center", data:{"turbolinks" => false} do %>
+  <!-- data:{"turbolinks" => false}でturbolinksを無効にし、jsを動かせるようにする -->
+   <%= image_tag 'anchor.svg', class:'main_icon', size:'50x40', alt:'アイコン画像' %><strong class="boatswin">BoatSwain</strong>
+  <%end%>
+
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
