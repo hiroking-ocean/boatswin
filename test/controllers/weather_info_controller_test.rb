@@ -8,5 +8,8 @@ class WeatherInfoControllerTest < ActionDispatch::IntegrationTest
     get root_path
     assert_response :success
     assert_select "title", "天気情報 #{@base_title}"
+    assert_select "li.active" do
+      assert_select "a", "天気"
+    end
   end
 end
