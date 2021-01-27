@@ -49,6 +49,21 @@ function to_datetime(str) {
   
     $('#hour-0in0 a').addClass('active')
   
+
+    //  作業中
+    var id_memo = 0
+    $('#' + id_memo + '.dr-time').removeClass('hide')
+    $('.dr-day').on('change', function () {
+      $('.carousel').off('slide.bs.carousel')
+      var id = $(this).children(':selected').attr('id')
+      $('#' + id_memo + '.dr-time').addClass('hide')
+      $('#' + id + '.dr-time').removeClass('hide')
+      console.log(id)
+      id_memo = id
+    })
+
+
+    
     function carousel_controll(id, type = "") {
       console.log("carousel:" + id + "/" + type)
       if (type != "time") { $('#TimeImageControll').carousel(find_index(id, 'time')) }

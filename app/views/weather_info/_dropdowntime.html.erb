@@ -1,0 +1,18 @@
+<div class="navlink dr-selecter">
+  <select class='dr-day'>
+    <% @names.file_name_format[:day].each_with_index do |value, i|%>
+      <option id='<%= i %>'>
+        <%= value %>
+      </option>
+      <%end%>
+  </select>
+  <% @names.file_name_format[:day].each_with_index do |value, i| %>
+    <select class='dr-time hide' id='<%= i %>'>
+      <% @names.file_name_format[:hour][i].each_with_index do |hour, n| %>
+        <option class='opti' id="i<%= @names.file_name_format[:index][i][n] %>">
+          <%= hour %>
+        </option>
+        <% end %>
+    </select>
+    <%end%>
+</div>

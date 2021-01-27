@@ -1,29 +1,32 @@
-<nav>
-  <div class="nav nav-tabs row" id="nav-tab" role="tablist">
-    <% @names.file_name_format[:day].each_with_index do |value, i|%>
-    <a class="nav-item nav-link date col <%= add_class(i,"active") %> nav-click" id="<%= i %>" data-toggle="tab"
-      href="#nav-<%= i %>" role="tab" aria-controls="nav-home" aria-selected="true"><%= value %></a>
+
+<div class="botton-selecter">
+  <nav>
+    <div class="nav nav-tabs row" id="nav-tab" role="tablist">
+      <% @names.file_name_format[:day].each_with_index do |value, i|%>
+      <a class="nav-item nav-link date col <%= add_class(i,"active") %> nav-click" id="<%= i %>" data-toggle="tab"
+        href="#nav-<%= i %>" role="tab" aria-controls="nav-home" aria-selected="true"><%= value %></a>
+      <%end%>
+    </div>
+  </nav>
+
+  <div class="tab-content" id="nav-tabContent">
+    <% @names.file_name_format[:day].each_with_index do |value, i| %>
+
+    <div class="tab-pane fade <%= add_class(i, "show") %> <%= add_class(i, "active") %>" id="nav-<%= i %>" role="tabpanel"
+      aria-labelledby="nav-hom-tab">
+      <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+
+        <% @names.file_name_format[:hour][i].each_with_index do |hour, n| %>
+
+        <li class="nav-item hours" id="hour-<%= i.to_s + "in" + n.to_s %>">
+          <a class="nav-link click" id="<%= @names.file_name_format[:index][i][n] %>" data-toggle="pill" href="#"
+            role="tab"><%= hour %></a>
+        </li>
+
+        <% end %>
+      </ul>
+    </div>
+
     <%end%>
   </div>
-</nav>
-
-<div class="tab-content" id="nav-tabContent">
-  <% @names.file_name_format[:day].each_with_index do |value, i| %>
-
-  <div class="tab-pane fade <%= add_class(i, "show") %> <%= add_class(i, "active") %>" id="nav-<%= i %>" role="tabpanel"
-    aria-labelledby="nav-hom-tab">
-    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-
-      <% @names.file_name_format[:hour][i].each_with_index do |hour, n| %>
-
-      <li class="nav-item hours" id="hour-<%= i.to_s + "in" + n.to_s %>">
-        <a class="nav-link click" id="<%= @names.file_name_format[:index][i][n] %>" data-toggle="pill" href="#"
-          role="tab"><%= hour %></a>
-      </li>
-
-      <% end %>
-    </ul>
-  </div>
-
-  <%end%>
 </div>
