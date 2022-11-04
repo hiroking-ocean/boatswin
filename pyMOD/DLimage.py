@@ -14,20 +14,25 @@ ua = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '\
         'Chrome/81.0.4044.129 Safari/537.36'}
 
 # ページのurl
-wave =  { 'url' : 'https://weather.yahoo.co.jp/weather/wave/', 'preffix' : 'https://weather.yahoo.co.jp/weather/wave/?m=height&c=' }
-wind =  { 'url' : 'https://weather.yahoo.co.jp/weather/wind/', 'preffix' : 'https://weather.yahoo.co.jp/weather/wind/?m=ground&c=' }
+wave =  { 'url' : 'https://weather.yahoo.co.jp/weather/wave/'}
+wind =  { 'url' : 'https://weather.yahoo.co.jp/weather/wind/'}
 chart = { 'url' : 'https://weather.yahoo.co.jp/weather/chart/'}
 
 
 #################### ダウンロードモジュールとスクレイピング ##################
 
 def download_image(url_list, file_pass) :
+  # url_listにimage_url(画像のダウンロードURL）、file_name（ファイルの名前）を格納
+  # file_passにダウンロード先のファイルパスを指定
 
   default_pass = os.path.join(os.path.dirname(__file__), '../app/assets/images/')
+  # defalt_passは保存先のルートパス
 
+  # 保存先のファイルパスを生成し、過去のものを削除する。
   pas = default_pass + file_pass
   shutil.rmtree(pas, True)
   os.makedirs(pas, exist_ok=True)
+
 
   for i,url in enumerate(url_list['img_url']):
     cont_img = requests.get(url, headers=ua, allow_redirects=False, timeout=100)
@@ -38,6 +43,7 @@ def download_image(url_list, file_pass) :
 
 
 def soup_gen(url, referer=None):
+  # beautiful soupを使って、urlからlxmlを生成する。
   req = requests.get(url, headers=ua)
   return BeautifulSoup(req.text, 'lxml')
 
@@ -76,38 +82,28 @@ def chart_url(url):
 
 ##################　波高および風力　#######################
 
-def get_image_url(pages_and_names):
+# url_list配列に、画像の番号とぺーじURLを入れて返す
+def weather_urls(main_url):
   url_list = { 'img_url' : [], 'file_name' : [] }
-  url_list['file_name'] = pages_and_names['file_name']
-  for i,url in enumerate(pages_and_names['page_urls']):
-    res = soup_gen(url)
-    img_tag = res.find('td', class_='mainImg')
-    url_list['img_url'].append(img_tag.find('img')['src'])
-    time.sleep(1)
-  return url_list
 
-def page_urls(main_url):
-  pages_and_names = { 'page_urls' : [], 'file_name' : [] }
-
-  #　main_urlから個別の番号をを抽出する
+  #　div_containerに、該当するimgタグを格納する
   main_soup = soup_gen(main_url['url'])
-  div_container = main_soup.find('div', class_='wavebg').find_all('option')
+  div_container = main_soup.find('ul', class_='imgList').find_all('img')
+
+  # url_listのimg_urlに画像のURLを格納する。
   for i,div in enumerate(div_container):
-    pages_and_names['file_name'].append(div['value'])
+    url_list['img_url'].append(div['data-lazyload-src'])
 
-  # url番号からページのurlを生成する
-  for suffix in pages_and_names['file_name'] :
-    pages_and_names['page_urls'].append(main_url['preffix'] + suffix)
+  # urlからファイルネームを格納する
+  for url in url_list['img_url'] :
+    url_list['file_name'].append(url[80:90])
+    print(url[80:90])
   
-  return pages_and_names
-
-def wind_and_wave(urls):
-  return get_image_url(page_urls(urls))
-
+  return url_list
 
 
 ################ ここから関数呼び出し ########################
 
 download_image(chart_url(chart), 'charts/')
-download_image(wind_and_wave(wave),  'waves/')
-download_image(wind_and_wave(wind),  'winds/')
+download_image(weather_urls(wave),  'waves/')
+download_image(weather_urls(wind),  'winds/')
