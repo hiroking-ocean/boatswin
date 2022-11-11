@@ -1,7 +1,7 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 
-
+// 文字列（2022020907）からdatetimeに変換
 function to_datetime(str) {
   var year = str.substr(0, 4)
   var month = str.substr(4, 2)
@@ -35,6 +35,7 @@ function controller_gen(gon_array) {
   return return_array
 }
 
+
 function find_index(time, kind) {
   kind_of_array = { time: gon.sorted, chart: gon.chart, wind: gon.wind, wave: gon.wave }
   gon_array = kind_of_array[kind]
@@ -49,8 +50,6 @@ $(function () {
 
   $('#hour-0in0 a').addClass('active')
 
-
-  //  作業中
   var id_memo = 0
   $('#' + id_memo + '.dr-time').removeClass('hide')
   $('.dr-day').on('change', function () {
@@ -69,12 +68,9 @@ $(function () {
   $('.dr-time').on('change', function () {
     var id = $(this).children(':selected').attr('id')
     var id = id.slice(1)
-     console.log(id)
+     console.log('idは：'+id)
     carousel_controll(id)
   })
-
-
-
 
 
   function carousel_controll(id, type = "") {
